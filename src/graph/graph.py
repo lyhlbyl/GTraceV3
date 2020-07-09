@@ -10,6 +10,7 @@ class Vertex(object):
 
     def get_id(self): return self._id
 
+
 class Edge(object):
     def __init__(self, eid, src, dst):
         self._id = eid
