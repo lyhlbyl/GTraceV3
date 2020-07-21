@@ -1,10 +1,8 @@
 import numpy as np
 import pandas as pd
+import utils
 import matplotlib.pyplot as plt
 import networkx as nx
-
-def load_trace_data(fname):
-    return pd.read_csv(f'data/{fname}.csv')
 
 def demo_dag():
     G = nx.DiGraph()
@@ -58,41 +56,9 @@ def demo_tree_plot():
     nx.draw(G, pos, with_labels=False, arrows=False)
     plt.show()
 
-def demo_toy_tree():
-    # dataset from https://rolandgeng.de/managing-trees-in-mysql-using-the-adjacency-list-model/
-    df = load_trace_data('toy_tree')
-
-    dag = nx.DiGraph()
-    labels = {}
-    for idx, r in df.iterrows():
-        if len(str(r.title)) > 3:
-            label = r.title[:3] + '.'
-        else: label = r.title
-        dag.add_node(r.id, name=label)
-    for idx, r in df.iterrows():
-        if r.parent_id not in dag.nodes:
-            dag.add_node(r.parent_id)
-        dag.add_edge(r.parent_id, r.id)
-
-    try:
-        pos = nx.nx_agraph.graphviz_layout(dag, prog='dot')
-    except ImportError:
-        pos = nx.spring_layout(dag, iterations=20)
-
-    labels = nx.get_node_attributes(dag, 'name')
-
-    nx.draw_networkx_nodes(dag, pos,
-                           node_color='b',
-                           node_size=500,
-                           alpha=0.1)
-    nx.draw_networkx_edges(dag, pos, edge_color='b')
-    nx.draw_networkx_labels(dag, pos, labels, font_size=16)
-    plt.show()
-
 if __name__ == '__main__':
-    print("Gtrace Analysis")
-    # print(df.head(10))
-    demo_toy_tree()
+    print(__file__)
+
 
 
 
