@@ -150,7 +150,7 @@ def parse_trace(df, name):
 
     pa_df = df[df[paid_colN].isnull()]
     chd_df = df[~df[paid_colN].isnull()]
-    metric_df = {}
+    metric_df = pd.DataFrame()
     for row in pa_df.itertuples():
         if debug_info:
             print(f"root collection id: {row.collection_id}")
@@ -201,4 +201,4 @@ if __name__ == '__main__':
 
     df = load_trace_data('../', 'cella_job_hie')
     print(df.shape)
-    # parse_trace(df, 'cella')
+    parse_trace(df, 'cella')
