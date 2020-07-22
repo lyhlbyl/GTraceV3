@@ -150,7 +150,7 @@ def parse_trace(df, name):
 
     pa_df = df[df[paid_colN].isnull()]
     chd_df = df[~df[paid_colN].isnull()]
-    metric_df = pd.DataFrame()
+    metric_df = pd.DataFrame([], columns=[id_colN, 'nodes','edges', 'avg_clcoef', 'max_degree', 'avg_degree'])
     cnt = 0
     for row in pa_df.itertuples():
         if debug_info:
@@ -160,7 +160,7 @@ def parse_trace(df, name):
         dag = parse_trace_to_dag(hie)
         metric = dag_metrics(dag)
         metric[id_colN] = row.collection_id
-        metric_df.append(metric, ignore_index=True)
+        metric_df = metric_df.append(metric, ignore_index=True)
 
     print(metric_df.describe())
     metric_df.to_csv(f'{name}.csv')
@@ -201,6 +201,6 @@ if __name__ == '__main__':
     # plot(dag)
 
 
-    df = load_trace_data('../', 'cella_job_hie')
+    df = load_trace_data('../', 'cella_jobs_sample')
     print(df.shape)
-    parse_trace(df, 'cella')
+    parse_trace(df, 'cella_sample')
