@@ -115,7 +115,7 @@ def toy_demo():
 
 def parse_trace_to_dag(df):
     if debug_info:
-        print(f"trace to daf, df shape: {df.shape()}")
+        print(f"trace to daf, df shape: {df.shape}")
     dag = nx.DiGraph()
     for r in df.itertuples():
         dag.add_node(r.collection_id)
