@@ -115,7 +115,7 @@ def toy_demo():
 
 def parse_trace_to_dag(df):
     if debug_info:
-        print(f"trace to daf, df shape: {df.shape}")
+        print(f"trace to dag, df shape: {df.shape}")
     dag = nx.DiGraph()
     for r in df.itertuples():
         dag.add_node(r.collection_id)
@@ -151,9 +151,11 @@ def parse_trace(df, name):
     pa_df = df[df[paid_colN].isnull()]
     chd_df = df[~df[paid_colN].isnull()]
     metric_df = pd.DataFrame()
+    cnt = 0
     for row in pa_df.itertuples():
         if debug_info:
-            print(f"root collection id: {row.collection_id}")
+            cnt = cnt + 1
+            print(f"root collection id: {row.collection_id}, cnt: {cnt}")
         chd_df, hie = get_child_trace(chd_df, df[df[id_colN] == row.collection_id])
         dag = parse_trace_to_dag(hie)
         metric = dag_metrics(dag)
