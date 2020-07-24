@@ -209,6 +209,6 @@ if __name__ == '__main__':
     # print(f"before plot{datetime.datetime.now()}")
     # plot(dag)
 
-    df = load_trace_data('../', 'outdated/cella_jobs_sample')
+    df = load_trace_data('../', 'cella_jobs_sample')
     print(df.shape)
     parse_trace(df, 'cella_sample')
