@@ -7,7 +7,7 @@ import numpy as np
 import math
 import pandas as pd
 
-debug_info = True
+debug_info = False
 
 # id, parent id, rootid
 id_colN = 'collection_id'
@@ -37,9 +37,9 @@ def dag_metrics(dag:nx.DiGraph):
     # nx.dag_longest_path_length(dag)
     # avg_depth = mean(path_len_list)
     # nx.average_shortest_path_length(dag)
-    print(f"before avg clustering depth @ {datetime.datetime.now()}")
+    # print(f"before avg clustering depth @ {datetime.datetime.now()}")
     avg_clcoef = nx.average_clustering(dag)
-    print(f"before calc degree @ {datetime.datetime.now()}")
+    # print(f"before calc degree @ {datetime.datetime.now()}")
     all_degrees = list(map(prj_2nd, filter(nonzero_degree, dag.out_degree())))
     max_degree = 0
     avg_degree = 0
@@ -155,11 +155,14 @@ def parse_trace(df, name):
     chd_df = df[~df[paid_colN].isnull()]
     root_df = pd.DataFrame([], columns=[id_colN,  rtid_colN])
     metric_df = pd.DataFrame([], columns=[id_colN, 'nodes','edges', 'avg_clcoef', 'max_degree', 'avg_degree'])
+    total = pa_df.shape[0]
     cnt = 0
     for row in pa_df.itertuples():
         if debug_info:
             cnt = cnt + 1
             print(f"root collection id: {row.collection_id}, cnt: {cnt}")
+        progress = "{:.3%}".format(cnt/total)
+        print(f"Progress: {progress}, total: {total}, cnt: {cnt}")
         chd_df, hie = get_child_trace(chd_df, df[df[id_colN] == row.collection_id])
 
         tmp_df = hie
