@@ -159,7 +159,6 @@ def parse_trace(df, name):
     cnt = 0
     for row in pa_df.itertuples():
         if debug_info:
-            cnt = cnt + 1
             print(f"root collection id: {row.collection_id}, cnt: {cnt}")
         progress = "{:.3%}".format(cnt/total)
         print(f"Progress: {progress}, total: {total}, cnt: {cnt}")
@@ -174,6 +173,7 @@ def parse_trace(df, name):
         metric = dag_metrics(dag)
         metric[id_colN] = row.collection_id
         metric_df = metric_df.append(metric, ignore_index=True)
+        cnt = cnt + 1
 
     print(metric_df.describe())
     metric_df.to_csv(f'{name}_dag.csv')
@@ -212,7 +212,17 @@ if __name__ == '__main__':
     # dag_metrics(dag)
     # print(f"before plot{datetime.datetime.now()}")
     # plot(dag)
-    fname = 'cella_jobs_sample'
+
+    # fname = 'cella_jobs_sample'
+    # df = load_trace_data('../', fname)
+    # print(df.shape)
+    # parse_trace(df, fname)
+
+    # cell = 'h'
+    cell = 'b'
+    fname = f'cell{cell}_job_hie'
     df = load_trace_data('../', fname)
-    print(df.shape)
-    parse_trace(df, fname)
+    cnt = 89351
+    total = df[df[paid_colN].isnull()].shape[0]
+    progress = "{:.3%}".format(cnt / total)
+    print(progress)
