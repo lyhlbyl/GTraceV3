@@ -163,7 +163,8 @@ def parse_trace(df, name):
         chd_df, hie = get_child_trace(chd_df, df[df[id_colN] == row.collection_id])
 
         tmp_df = hie
-        tmp_df[rtid_colN] = row.collection_id
+        # tmp_df[rtid_colN] = row.collection_id
+        tmp_df.insert(0, rtid_colN, row.collection_id)
         root_df = root_df.append(tmp_df[[id_colN,  rtid_colN]], ignore_index=True)
 
         dag = parse_trace_to_dag(hie)
@@ -208,7 +209,7 @@ if __name__ == '__main__':
     # dag_metrics(dag)
     # print(f"before plot{datetime.datetime.now()}")
     # plot(dag)
-
-    df = load_trace_data('../', 'cella_jobs_sample')
+    fname = 'cella_jobs_sample'
+    df = load_trace_data('../', fname)
     print(df.shape)
-    parse_trace(df, 'cella_sample')
+    parse_trace(df, fname)
