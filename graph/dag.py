@@ -38,7 +38,7 @@ def dag_metrics(dag:nx.DiGraph):
     # avg_depth = mean(path_len_list)
     # nx.average_shortest_path_length(dag)
     # print(f"before avg clustering depth @ {datetime.datetime.now()}")
-    avg_clcoef = nx.average_clustering(dag)
+    avg_clcoef = 0 # nx.average_clustering(dag)
     # print(f"before calc degree @ {datetime.datetime.now()}")
     all_degrees = list(map(prj_2nd, filter(nonzero_degree, dag.out_degree())))
     max_degree = 0
@@ -219,10 +219,10 @@ if __name__ == '__main__':
     # parse_trace(df, fname)
 
     # cell = 'h'
-    cell = 'b'
-    fname = f'cell{cell}_job_hie'
-    df = load_trace_data('../', fname)
-    cnt = 89351
-    total = df[df[paid_colN].isnull()].shape[0]
-    progress = "{:.3%}".format(cnt / total)
-    print(progress)
+    # # cell = 'b'
+    # fname = f'cell{cell}_job_hie'
+    # df = ad_trace_data('../', fname)
+    # cnt = 2884800
+    # total = df[df[paid_colN].isnull()].shape[0]
+    # progress = "{:.3%}".format(cnt / total)
+    # print(progress)
