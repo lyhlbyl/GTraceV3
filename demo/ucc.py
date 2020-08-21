@@ -14,7 +14,7 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from datetime import datetime
 
 
-data_path = 'data/ucc/'
+data_path = '../data/ucc/'
 
 # Preprocessing:
 idN = 'collection_id'
